@@ -45,13 +45,18 @@ routes.get('/index/:letra', (req: Request, res: Response) => {
 // TODO: 8) Mostrar toda a agenda ordenada por mês.
 routes.get('/', (req: Request, res: Response) => {
   const { ordem } = req.query;
-  if (ordem === 'nome')
-    return res.json({ message: `Indexa todos os aniversariantes ordenados por ${ordem}.` });
-  if (ordem === 'mes')
-    return res.json({ message: `Indexa todos os aniversariantes ordenados por ${ordem}.` });
+  if (ordem === 'nome') {
+    return res.json({
+      message: `Indexa todos os aniversariantes ordenados por ${ordem}.`,
+    });
+  }
+  if (ordem === 'mes') {
+    return res.json({
+      message: `Indexa todos os aniversariantes ordenados por ${ordem}.`,
+    });
+  }
 
   return res.json({ message: 'Indexa todos os aniversariantes.' });
 });
-
 
 export default routes;
