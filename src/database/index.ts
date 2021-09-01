@@ -22,7 +22,7 @@ function getLastId() {
 
   return db[lastIndex].id + 1;
 }
-m;
+
 function adicionarRegistro(userData: UserData) {
   const db = getDB();
   const newUser = { id: getLastId(), ...userData };
