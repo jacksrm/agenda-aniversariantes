@@ -1,7 +1,6 @@
 import fs from 'fs';
 import { User, UserDataUpdate, UserData } from '../types';
 
-
 function getDB() {
   const dbFile = fs.readFileSync(`${__dirname}/db.json`, { encoding: 'utf-8' });
 
@@ -24,15 +23,16 @@ function getLastId() {
   return db[lastIndex].id + 1;
 }
 
-export function adicionarRegistro(userData: UserData) {
+function adicionarRegistro(userData: UserData) {
   const db = getDB();
   const newUser = { id: getLastId(), ...userData };
 
   db.push(newUser);
 
   saveDB(db);
+}
 
-export function removerRegistro(nome: string) {
+function removerRegistro(nome: string) {
   const db = getDB();
   const usuario = db.find((user) => nome === user.nome);
 
@@ -45,7 +45,7 @@ export function removerRegistro(nome: string) {
   return { message: 'Usuário não deletado!' };
 }
 
-export function alterarNomeRegistro(nome: string, update: UserDataUpdate) {
+function alterarNomeRegistro(nome: string, update: UserDataUpdate) {
   const db = getDB();
   const usuario = db.find((user) => nome === user.nome);
 
@@ -57,3 +57,5 @@ export function alterarNomeRegistro(nome: string, update: UserDataUpdate) {
   saveDB(db);
   return { message: 'Usuário alterado!' };
 }
+
+export { adicionarRegistro, removerRegistro, alterarNomeRegistro };

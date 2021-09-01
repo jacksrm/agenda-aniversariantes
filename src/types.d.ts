@@ -15,4 +15,3 @@ export type UserData = {
   mes: number,
   dia: number
 }
-

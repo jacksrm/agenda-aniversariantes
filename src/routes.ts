@@ -1,5 +1,5 @@
+import { adicionarRegistro, alterarNomeRegistro, removerRegistro } from 'database';
 import express, { Request, Response } from 'express';
-import { adicionarRegistro, removerRegistro, alterarNomeRegistro } from './database';
 import { User, UserDataUpdate } from './types';
 
 const routes = express.Router();
