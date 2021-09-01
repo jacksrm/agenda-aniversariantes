@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import { adicionarRegistro } from './database';
-import { User } from './types';
+import { adicionarRegistro, removerRegistro, alterarNomeRegistro } from './database';
+import { User, UserDataUpdate } from './types';
 
 const routes = express.Router();
 
@@ -16,10 +16,27 @@ routes.post('/cadastrar', (req: Request, res: Response) => {
 // TODO: 2) Excluir pessoa a partir do nome.
 routes.delete('/excluir/:nome', (req: Request, res: Response) => {
   const { nome } = req.params;
+
+  const message = removerRegistro(nome);
+
+  res.json(message);
 });
 
 // TODO: 3) Alterar dia ou mês a partir do nome.
-routes.put('/alterar/:nome', (req: Request, res: Response) => {});
+routes.put('/alterar/:nome', (req: Request, res: Response) => {
+  const { nome } = req.params;
+  const update: UserDataUpdate = {
+    mes: req.body.mes,
+    dia: req.body.dia,
+  };
+
+  try {
+    const message = alterarNomeRegistro(nome, update);
+    return res.json(message);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+});
 
 // TODO: 4) Consultar aniversariantes de uma data (dia e mês).
 routes.get('/index/:mes/:dia', (req: Request, res: Response) => {
