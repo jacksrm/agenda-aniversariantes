@@ -1,5 +1,6 @@
 import fs from 'fs';
-import { User, UserDataUpdate } from '../types';
+import { User, UserDataUpdate, UserData } from '../types';
+
 
 function getDB() {
   const dbFile = fs.readFileSync(`${__dirname}/db.json`, { encoding: 'utf-8' });
@@ -15,15 +16,21 @@ function saveDB(dbObject: User[]) {
   fs.writeFileSync(`${__dirname}/db.json`, dbFile, { encoding: 'utf-8' });
 }
 
-export function adicionarRegistro(user: User) {
+function getLastId() {
   const db = getDB();
+  if (db.length === 0) return 0;
+  const lastIndex = db.length - 1;
 
-  db.push(user);
+  return db[lastIndex].id + 1;
+}
+
+export function adicionarRegistro(userData: UserData) {
+  const db = getDB();
+  const newUser = { id: getLastId(), ...userData };
+
+  db.push(newUser);
 
   saveDB(db);
-
-  return { message: 'Usuário salvo!' };
-}
 
 export function removerRegistro(nome: string) {
   const db = getDB();
