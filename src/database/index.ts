@@ -60,4 +60,14 @@ function alterarNomeRegistro(nome: string, update: UserDataUpdate) {
   return { message: 'Usuário alterado!' };
 }
 
-export { adicionarRegistro, removerRegistro, alterarNomeRegistro };
+function consultaLetraInicial(letra? : string) {
+  if (!letra) throw new Error('Letra não informada');
+  const db = getDB();
+  const arrUsuariosEncontrados = db.filter((user) => {
+    const regex = new RegExp(`^${letra}`, 'i');
+    return regex.test(user.nome);
+  });
+  return arrUsuariosEncontrados;
+}
+
+export { adicionarRegistro, removerRegistro, alterarNomeRegistro, consultaLetraInicial };

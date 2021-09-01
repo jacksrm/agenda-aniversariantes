@@ -1,5 +1,10 @@
+import {
+  adicionarRegistro,
+  alterarNomeRegistro,
+  removerRegistro,
+  consultaLetraInicial,
+} from 'database';
 import express, { Request, Response } from 'express';
-import { adicionarRegistro, alterarNomeRegistro, removerRegistro } from './database';
 import { User, UserDataUpdate } from './types';
 
 const routes = express.Router();
@@ -51,11 +56,21 @@ routes.get('/index/:mes', (req: Request, res: Response) => {
   res.json({ message: `Indexa aniversariantes do mes ${mes}.` });
 });
 
-// TODO: 6) Consultar aniversariantes pela letra inicial do nome. Samurai
-routes.get('/index/:letra', (req: Request, res: Response) => {
-  const { letra } = req.params;
-
-  res.json({ message: `Indexa aniversariantes que começam com ${letra}.` });
+// TODO: 6) Consultar aniversariantes pela letra inicial do nome.
+routes.get('/index', (req: Request, res: Response) => {
+  const letra = req.query.letra as string | undefined;
+  try {
+    const usuarios = consultaLetraInicial(letra);
+    return res
+      .status(200)
+      .json({
+        usuarios,
+      });
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message,
+    });
+  }
 });
 
 // TODO: jack
