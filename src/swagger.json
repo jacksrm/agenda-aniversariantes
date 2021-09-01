@@ -1,0 +1,159 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Agenda de Aniversariantes API.",
+    "description": "Esta é uma API desenvolvida na disciplina de Técnicas de Integração de Sistemas da Universidade de Fortaleza e tem como objetivo praticar os princípios da construção de uma APIRest e documentação da mesma.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Jacson Rodrigues",
+      "email": "jacson.s.r1@edu.unifor.br"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333/",
+      "description": "URL de desenvolvimento executando em localhost."
+    }
+  ],
+  "paths": {
+    "/": {},
+    "/cadastrar": {
+      "post": {
+        "summary": "Cadastramento de novos usuários",
+        "description": "Esta é a rota para cadastrar um nome de uma pessoa junto com o mês e dia de seu aniversário",
+        "tag": [
+          "Usuário"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UsuárioSemId"
+        },
+        "responses": {
+          "201": {
+            "description": "Um objeto com a mensagem de sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Usuário cadastrado com sucesso!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/excluir/{nome}": {
+      "delete": {
+        "summary": "Remover Usuário Por Nome",
+        "description": "Esta rota recebe como parâmetro o nome do usuário e remove o primeiro registro que bate com o nome passado.",
+        "tag": ["Usuário"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nome",
+            "description": "Nome do usuário a ser removido.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Jacson",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Um objeto com a mensagem de sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Usuário removido!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Um objeto com a mensagem de erro!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Usuário não removido!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alterar/{nome}": {},
+    "/index/{mes}/{dia}": {},
+    "/index/{mes}": {},
+    "/index/{letra}": {}
+  },
+  "components": {
+    "schemas": {
+      "UsuárioSemId": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "mes": {
+            "type": "integer"
+          },
+          "dia": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "nome",
+          "mes",
+          "dia"
+        ]
+      }
+    },
+    "exemples": {
+      "UsuárioSemId": {
+        "summary": "Exemplo de usuário",
+        "value": {
+          "nome": "Jacson Rodrigues",
+          "mes": 10,
+          "dia": 22
+        }
+      }
+    },
+    "requestBodies": {
+      "UsuárioSemId": {
+        "description": "Objeto JSON contendo dados de um usuário",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UsuárioSemId"
+            },
+            "examples": {
+              "Usuário": {
+                "$ref": "#/components/exemples/UsuárioSemId"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
