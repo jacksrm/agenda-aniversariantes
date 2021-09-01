@@ -9,25 +9,25 @@ import { User, UserDataUpdate } from './types';
 
 const routes = express.Router();
 
-// TODO: 1) Cadastrar pessoa na agenda de aniversariantes (nome, dia e mês do aniversário).
 routes.post('/cadastrar', (req: Request, res: Response) => {
   const { nome, mes, dia }: User = req.body;
 
   const message = adicionarRegistro({ nome, mes, dia });
 
-  res.json(message);
+  res.status(201).json(message);
 });
 
-// TODO: 2) Excluir pessoa a partir do nome.
 routes.delete('/excluir/:nome', (req: Request, res: Response) => {
   const { nome } = req.params;
+  try {
+    const message = removerRegistro(nome);
 
-  const message = removerRegistro(nome);
-
-  res.json(message);
+    res.status(200).json(message);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-// TODO: 3) Alterar dia ou mês a partir do nome.
 routes.put('/alterar/:nome', (req: Request, res: Response) => {
   const { nome } = req.params;
   const update: UserDataUpdate = {
@@ -43,14 +43,14 @@ routes.put('/alterar/:nome', (req: Request, res: Response) => {
   }
 });
 
-// TODO: 4) Consultar aniversariantes de uma data (dia e mês).
+// TODO: 4) Consultar aniversariantes de uma data (dia e mês). Dante
 routes.get('/index/:mes/:dia', (req: Request, res: Response) => {
   const { mes, dia } = req.params;
 
   res.json({ message: `Indexa aniversariantes do dia ${dia}/${mes}.` });
 });
 
-// TODO: 5) Consultar aniversariantes por mês.
+// TODO: 5) Consultar aniversariantes por mês. Jão
 routes.get('/index/:mes', (req: Request, res: Response) => {
   const { mes } = req.params;
   res.json({ message: `Indexa aniversariantes do mes ${mes}.` });
@@ -73,6 +73,7 @@ routes.get('/index', (req: Request, res: Response) => {
   }
 });
 
+// TODO: jack
 // TODO: 7) Mostrar toda a agenda ordenada pelo nome.
 // TODO: 8) Mostrar toda a agenda ordenada por mês.
 routes.get('/', (req: Request, res: Response) => {

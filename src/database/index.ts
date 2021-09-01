@@ -22,7 +22,7 @@ function getLastId() {
 
   return db[lastIndex].id + 1;
 }
-
+m;
 function adicionarRegistro(userData: UserData) {
   const db = getDB();
   const newUser = { id: getLastId(), ...userData };
@@ -30,19 +30,21 @@ function adicionarRegistro(userData: UserData) {
   db.push(newUser);
 
   saveDB(db);
+  return { message: 'Usuário cadastrado com sucesso!' };
 }
 
 function removerRegistro(nome: string) {
   const db = getDB();
-  const usuario = db.find((user) => nome === user.nome);
+  const usuario = db.find((user) => new RegExp(nome, 'i').test(user.nome));
 
-  if (usuario) {
-    const targetIndex = db.indexOf(usuario);
-    db.splice(targetIndex, 1);
-    saveDB(db);
-    return { message: 'Usuário deletado!' };
+  if (!usuario) {
+    throw new Error('Usuário não removido!');
   }
-  return { message: 'Usuário não deletado!' };
+
+  const targetIndex = db.indexOf(usuario);
+  db.splice(targetIndex, 1);
+  saveDB(db);
+  return { message: 'Usuário removido!' };
 }
 
 function alterarNomeRegistro(nome: string, update: UserDataUpdate) {
