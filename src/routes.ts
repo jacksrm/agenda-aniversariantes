@@ -1,4 +1,9 @@
-import { adicionarRegistro, alterarNomeRegistro, removerRegistro } from 'database';
+import {
+  adicionarRegistro,
+  alterarNomeRegistro,
+  removerRegistro,
+  consultaLetraInicial,
+} from 'database';
 import express, { Request, Response } from 'express';
 import { User, UserDataUpdate } from './types';
 
@@ -52,10 +57,20 @@ routes.get('/index/:mes', (req: Request, res: Response) => {
 });
 
 // TODO: 6) Consultar aniversariantes pela letra inicial do nome.
-routes.get('/index/:letra', (req: Request, res: Response) => {
-  const { letra } = req.params;
-
-  res.json({ message: `Indexa aniversariantes que começam com ${letra}.` });
+routes.get('/index', (req: Request, res: Response) => {
+  const letra = req.query.letra as string | undefined;
+  try {
+    const usuarios = consultaLetraInicial(letra);
+    return res
+      .status(200)
+      .json({
+        usuarios,
+      });
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message,
+    });
+  }
 });
 
 // TODO: 7) Mostrar toda a agenda ordenada pelo nome.
