@@ -60,7 +60,7 @@ function alterarNomeRegistro(nome: string, update: UserDataUpdate) {
   return { message: 'Usuário alterado!' };
 }
 
-function consultaLetraInicial(letra? : string) {
+function consultaLetraInicial(letra?: string) {
   if (!letra) throw new Error('Letra não informada');
   if (!(/^[a-zA-Z]+$/.test(letra))) throw new Error('Caractere inválido');
   const db = getDB();
@@ -71,4 +71,9 @@ function consultaLetraInicial(letra? : string) {
   return arrUsuariosEncontrados;
 }
 
-export { adicionarRegistro, removerRegistro, alterarNomeRegistro, consultaLetraInicial };
+export {
+  adicionarRegistro,
+  removerRegistro,
+  alterarNomeRegistro,
+  consultaLetraInicial,
+};

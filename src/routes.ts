@@ -62,11 +62,9 @@ routes.get('/index', (req: Request, res: Response) => {
   if (!letra || letra.length === 0) return res.status(400).json({ message: 'Letra não informada' });
   try {
     const usuarios = consultaLetraInicial(letra);
-    return res
-      .status(200)
-      .json({
-        usuarios,
-      });
+    return res.status(200).json({
+      usuarios,
+    });
   } catch (error) {
     return res.status(400).json({
       message: error.message,
