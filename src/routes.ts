@@ -59,6 +59,7 @@ routes.get('/index/:mes', (req: Request, res: Response) => {
 // TODO: 6) Consultar aniversariantes pela letra inicial do nome.
 routes.get('/index', (req: Request, res: Response) => {
   const letra = req.query.letra as string | undefined;
+  if (!letra || letra.length === 0) return res.status(400).json({ message: 'Letra não informada' });
   try {
     const usuarios = consultaLetraInicial(letra);
     return res

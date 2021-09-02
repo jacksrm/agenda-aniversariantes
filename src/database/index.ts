@@ -62,6 +62,7 @@ function alterarNomeRegistro(nome: string, update: UserDataUpdate) {
 
 function consultaLetraInicial(letra? : string) {
   if (!letra) throw new Error('Letra não informada');
+  if (!(/^[a-zA-Z]+$/.test(letra))) throw new Error('Caractere inválido');
   const db = getDB();
   const arrUsuariosEncontrados = db.filter((user) => {
     const regex = new RegExp(`^${letra}`, 'i');
