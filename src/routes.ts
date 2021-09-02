@@ -61,11 +61,9 @@ routes.get('/index', (req: Request, res: Response) => {
   const letra = req.query.letra as string | undefined;
   try {
     const usuarios = consultaLetraInicial(letra);
-    return res
-      .status(200)
-      .json({
-        usuarios,
-      });
+    return res.status(200).json({
+      usuarios,
+    });
   } catch (error) {
     return res.status(400).json({
       message: error.message,

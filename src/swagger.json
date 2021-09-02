@@ -100,7 +100,82 @@
         }
       }
     },
-    "/alterar/{nome}": {},
+    "/alterar/{nome}": {
+      "put": {
+        "summary": "Alterar Dia e Mes do usuário por nome",
+        "description": "Esta rota recebe como parâmetro o nome do usuário e altera o dia e o mes desse usuario passado no corpo da requisicao.",
+        "tag": ["Usuário"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nome",
+            "description": "Nome do usuário a ser alterado.",
+            "schema": {
+              "type": "object"
+            },
+            "example": "Jonas",
+            "required": true
+          }
+        ],
+        "requestBody":{
+          "required": true,
+          "summary": "Dia e Mes a serem alterados.",
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "dia":{
+                    "type": "integer"
+                  },
+                  "mes":{
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "dia": 8,
+                "mes": 5
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Um objeto com a mensagem de sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Usuário alterado!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Um objeto com a mensagem de erro!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Usuário não alterado!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/index/{mes}/{dia}": {},
     "/index/{mes}": {},
     "/index/{letra}": {}
