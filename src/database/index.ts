@@ -62,7 +62,7 @@ function alterarNomeRegistro(nome: string, update: UserDataUpdate) {
 
 function consultaLetraInicial(letra?: string) {
   if (!letra) throw new Error('Letra não informada');
-  if (!(/^[a-zA-Z]+$/.test(letra))) throw new Error('Caractere inválido');
+  if (!/^[a-zA-Z]+$/.test(letra)) throw new Error('Caractere inválido');
   const db = getDB();
   const arrUsuariosEncontrados = db.filter((user) => {
     const regex = new RegExp(`^${letra}`, 'i');
@@ -70,10 +70,18 @@ function consultaLetraInicial(letra?: string) {
   });
   return arrUsuariosEncontrados;
 }
+function consultaMesDia(mes: number, dia: number) {
+  if (!(mes >= 1 && mes <= 12)) throw new Error('Mês inválido');
+  if (!(dia >= 1 && dia <= 31)) throw new Error('Dia inválido');
+  const db = getDB();
+  const arrUsuariosEncontrados = db.filter((user) => user.dia === dia && user.mes === mes);
 
+  return arrUsuariosEncontrados;
+}
 export {
   adicionarRegistro,
   removerRegistro,
   alterarNomeRegistro,
   consultaLetraInicial,
+  consultaMesDia,
 };

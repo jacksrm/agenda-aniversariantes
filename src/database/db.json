@@ -1,38 +1,37 @@
-[
-  {
-    "id": 0,
-    "nome": "Ednaldo Pereira",
-    "mes": 8,
-    "dia": 12
-  },
-  {
-    "id": 1,
-    "nome": "Ednaldo Pereira Junior",
-    "mes": 8,
-    "dia": 12
-  },
-  {
-    "id": 2,
-    "nome": "Ednalda Raimunda Pereira",
-    "mes": 8,
-    "dia": 12
-  },
-  {
-    "id": 3,
-    "nome": "Jonas",
-    "mes": 8,
-    "dia": 12
-  },
-  {
-    "id": 4,
-    "nome": "Junubaiu",
-    "mes": 8,
-    "dia": 12
-  },
-  {
-    "id": 5,
-    "nome": "Samuras",
-    "mes": 8,
-    "dia": 12
-  }
+[{
+        "id": 0,
+        "nome": "Ednaldo Pereira",
+        "mes": 8,
+        "dia": 12
+    },
+    {
+        "id": 1,
+        "nome": "Ednaldo Pereira Junior",
+        "mes": 8,
+        "dia": 12
+    },
+    {
+        "id": 2,
+        "nome": "Ednalda Raimunda Pereira",
+        "mes": 8,
+        "dia": 12
+    },
+    {
+        "id": 3,
+        "nome": "Jonas",
+        "mes": 8,
+        "dia": 12
+    },
+    {
+        "id": 4,
+        "nome": "Junubaiu",
+        "mes": 8,
+        "dia": 12
+    },
+    {
+        "id": 5,
+        "nome": "Samuras",
+        "mes": 8,
+        "dia": 12
+    }
 ]
