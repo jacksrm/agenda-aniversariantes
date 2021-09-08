@@ -62,7 +62,7 @@ function alterarNomeRegistro(nome: string, update: UserDataUpdate) {
 
 function consultaLetraInicial(letra?: string) {
   if (!letra) throw new Error('Letra não informada');
-  if (!(/^[a-zA-Z]+$/.test(letra))) throw new Error('Caractere inválido');
+  if (!/^[a-zA-Z]+$/.test(letra)) throw new Error('Caractere inválido');
   const db = getDB();
   const arrUsuariosEncontrados = db.filter((user) => {
     const regex = new RegExp(`^${letra}`, 'i');
@@ -71,9 +71,26 @@ function consultaLetraInicial(letra?: string) {
   return arrUsuariosEncontrados;
 }
 
+function ordenarDB(ordem: string) {
+  const db = getDB();
+
+  const ordenacao = ordem === 'mes'
+    ? db.sort((a, b) => {
+      const condition = a.mes - b.mes;
+      return condition;
+    })
+    : db.sort((a, b) => {
+      const condition = a.nome < b.nome ? -1 : 1;
+      return condition;
+    });
+
+  return ordenacao;
+}
+
 export {
   adicionarRegistro,
   removerRegistro,
   alterarNomeRegistro,
   consultaLetraInicial,
+  ordenarDB,
 };
