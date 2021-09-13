@@ -72,9 +72,7 @@
       "post": {
         "summary": "Cadastramento de novos usuários",
         "description": "Esta é a rota para cadastrar um nome de uma pessoa junto com o mês e dia de seu aniversário",
-        "tag": [
-          "Usuário"
-        ],
+        "tags": ["Usuário"],
         "requestBody": {
           "$ref": "#/components/requestBodies/UsuárioSemId"
         },
@@ -102,9 +100,7 @@
       "delete": {
         "summary": "Remover Usuário Por Nome",
         "description": "Esta rota recebe como parâmetro o nome do usuário e remove o primeiro registro que bate com o nome passado.",
-        "tag": [
-          "Usuário"
-        ],
+        "tags": ["Usuário"],
         "parameters": [
           {
             "in": "path",
@@ -157,9 +153,7 @@
       "put": {
         "summary": "Alterar Dia e Mes do usuário por nome",
         "description": "Esta rota recebe como parâmetro o nome do usuário e altera o dia e o mes desse usuario passado no corpo da requisicao.",
-        "tag": [
-          "Usuário"
-        ],
+        "tags": ["Usuário"],
         "parameters": [
           {
             "in": "path",
