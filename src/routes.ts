@@ -88,7 +88,7 @@ routes.get('/', (req: Request, res: Response) => {
   const { ordem } = req.query;
   const users = ordenarDB(ordem as string);
 
-  return res.status(200).json(users);
+  return res.status(200).json({ users });
 });
 
 export default routes;

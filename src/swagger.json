@@ -16,12 +16,65 @@
     }
   ],
   "paths": {
-    "/": {},
+    "/": {
+      "get": {
+        "summary": "Retorna todos os usuários ordenados",
+        "description": "Esta rota recebe um parâmetro via query chamado ordem que recebe 'mes' ou 'nome' e retorna todos os registros ordenados por nome ou mês de aniversário.",
+        "tag": [
+          "Usuário"
+        ],
+        "parameters": [
+          {
+            "name": "ordem",
+            "in": "query",
+            "description": "Critério de ordenação, seja 'nome' ou 'mes'",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro de usuários",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "usuarios": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "mes": {
+                            "type": "integer"
+                          },
+                          "dia": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/cadastrar": {
       "post": {
         "summary": "Cadastramento de novos usuários",
         "description": "Esta é a rota para cadastrar um nome de uma pessoa junto com o mês e dia de seu aniversário",
-        "tag": ["Usuário"],
+        "tag": [
+          "Usuário"
+        ],
         "requestBody": {
           "$ref": "#/components/requestBodies/UsuárioSemId"
         },
@@ -49,7 +102,9 @@
       "delete": {
         "summary": "Remover Usuário Por Nome",
         "description": "Esta rota recebe como parâmetro o nome do usuário e remove o primeiro registro que bate com o nome passado.",
-        "tag": ["Usuário"],
+        "tag": [
+          "Usuário"
+        ],
         "parameters": [
           {
             "in": "path",
@@ -102,7 +157,9 @@
       "put": {
         "summary": "Alterar Dia e Mes do usuário por nome",
         "description": "Esta rota recebe como parâmetro o nome do usuário e altera o dia e o mes desse usuario passado no corpo da requisicao.",
-        "tag": ["Usuário"],
+        "tag": [
+          "Usuário"
+        ],
         "parameters": [
           {
             "in": "path",
@@ -115,18 +172,18 @@
             "required": true
           }
         ],
-        "requestBody":{
+        "requestBody": {
           "required": true,
           "summary": "Dia e Mes a serem alterados.",
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
-                "properties":{
-                  "dia":{
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dia": {
                     "type": "integer"
                   },
-                  "mes":{
+                  "mes": {
                     "type": "integer"
                   }
                 }
@@ -179,8 +236,10 @@
     "/index": {
       "get": {
         "summary": "Busca usuário por letra inicial ou nome",
-        "description": "Rota responsável por recuperar os cadastros perinentes aos parâmetros da busca",
-        "tags": ["Usuário"],
+        "description": "Rota responsável por recuperar os cadastros pertinentes aos parâmetros da busca",
+        "tags": [
+          "Usuário"
+        ],
         "parameters": [
           {
             "name": "letra",
@@ -197,9 +256,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "usuarios": {
-                      "$ref": "#/components/schemas/Usuários"
-                    }
+                    "$ref": "#/components/examples/Usuários"
                   }
                 },
                 "example": {
@@ -262,7 +319,11 @@
             "type": "integer"
           }
         },
-        "required": ["nome", "mes", "dia"]
+        "required": [
+          "nome",
+          "mes",
+          "dia"
+        ]
       },
       "Usuário": {
         "type": "object",
