@@ -19,7 +19,7 @@
             "post": {
                 "summary": "Cadastramento de novos usuários",
                 "description": "Esta é a rota para cadastrar um nome de uma pessoa junto com o mês e dia de seu aniversário",
-                "tag": ["Usuário"],
+                "tags": ["Usuário"],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/UsuárioSemId"
                 },
@@ -47,7 +47,7 @@
             "delete": {
                 "summary": "Remover Usuário Por Nome",
                 "description": "Esta rota recebe como parâmetro o nome do usuário e remove o primeiro registro que bate com o nome passado.",
-                "tag": ["Usuário"],
+                "tags": ["Usuário"],
                 "parameters": [{
                     "in": "path",
                     "name": "nome",
@@ -98,13 +98,13 @@
             "put": {
                 "summary": "Alterar Dia e Mes do usuário por nome",
                 "description": "Esta rota recebe como parâmetro o nome do usuário e altera o dia e o mes desse usuario passado no corpo da requisicao.",
-                "tag": ["Usuário"],
+                "tags": ["Usuário"],
                 "parameters": [{
                     "in": "path",
                     "name": "nome",
                     "description": "Nome do usuário a ser alterado.",
                     "schema": {
-                        "type": "object"
+                        "type": "string"
                     },
                     "example": "Jonas",
                     "required": true
@@ -168,7 +168,76 @@
                 }
             }
         },
-        "/index/{mes}/{dia}": {},
+        "/index/{mes}/{dia}": {
+            "get": {
+                "summary": "Busca de usuário a partir do mes e dia",
+                "description": "Rota criada para achar o usuario a partir do mes e dia",
+                "tags": ["Usuário"],
+                "parameters": [{
+                        "name": "mes",
+                        "in": "path",
+                        "description": "Mes do usuario para busca",
+                        "required": true
+                    },
+                    {
+                        "name": "dia",
+                        "in": "path",
+                        "description": "Dia do usuario para busca",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuários encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Usuário"
+                                    }
+                                },
+                                "example": [{
+                                        "id": 222,
+                                        "nome": "Jacson Rodrigues",
+                                        "mes": 10,
+                                        "dia": 22
+                                    },
+                                    {
+                                        "id": 212,
+                                        "nome": "Jaqueline Rodrigues",
+                                        "mes": 4,
+                                        "dia": 11
+                                    },
+                                    {
+                                        "id": 312,
+                                        "nome": "Pamela Coelho",
+                                        "mes": 6,
+                                        "dia": 25
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dia ou mês no formato errado!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mês/Dia inválido!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/index/{mes}": {},
         "/index": {
             "get": {
