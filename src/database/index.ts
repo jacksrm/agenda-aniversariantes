@@ -78,10 +78,28 @@ function consultaMesDia(mes: number, dia: number) {
 
   return arrUsuariosEncontrados;
 }
+
+function ordenarDB(ordem: string) {
+  const db = getDB();
+
+  const ordenacao = ordem === 'mes'
+    ? db.sort((a, b) => {
+      const condition = a.mes - b.mes;
+      return condition;
+    })
+    : db.sort((a, b) => {
+      const condition = a.nome < b.nome ? -1 : 1;
+      return condition;
+    });
+
+  return ordenacao;
+}
+
 export {
   adicionarRegistro,
   removerRegistro,
   alterarNomeRegistro,
   consultaLetraInicial,
   consultaMesDia,
+  ordenarDB,
 };

@@ -1,11 +1,12 @@
+import express, { Request, Response } from 'express';
 import {
   adicionarRegistro,
   alterarNomeRegistro,
   removerRegistro,
   consultaLetraInicial,
   consultaMesDia,
-} from 'database';
-import express, { Request, Response } from 'express';
+  ordenarDB,
+} from './database';
 import { User, UserDataUpdate } from './types';
 
 const routes = express.Router();
@@ -15,7 +16,7 @@ routes.post('/cadastrar', (req: Request, res: Response) => {
 
   const message = adicionarRegistro({ nome, mes, dia });
 
-  res.status(201).json(message);
+  return res.status(201).json(message);
 });
 
 routes.delete('/excluir/:nome', (req: Request, res: Response) => {
@@ -23,9 +24,13 @@ routes.delete('/excluir/:nome', (req: Request, res: Response) => {
   try {
     const message = removerRegistro(nome);
 
-    res.status(200).json(message);
+    return res.status(200).json(message);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    if (error instanceof Error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    return res.sendStatus(400);
   }
 });
 
@@ -40,7 +45,10 @@ routes.put('/alterar/:nome', (req: Request, res: Response) => {
     const message = alterarNomeRegistro(nome, update);
     return res.json(message);
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    if (error instanceof Error) {
+      return res.status(400).json({ message: error.message });
+    }
+    return res.sendStatus(400);
   }
 });
 
@@ -63,39 +71,31 @@ routes.get('/index/:mes', (req: Request, res: Response) => {
   res.json({ message: `Indexa aniversariantes do mes ${mes}.` });
 });
 
-// TODO: 6) Consultar aniversariantes pela letra inicial do nome.
 routes.get('/index', (req: Request, res: Response) => {
   const letra = req.query.letra as string | undefined;
-  if (!letra || letra.length === 0) return res.status(400).json({ message: 'Letra não informada' });
+  if (!letra || letra.length === 0) {
+    return res.status(400).json({ message: 'Letra não informada' });
+  }
+
   try {
     const usuarios = consultaLetraInicial(letra);
-    return res.status(200).json({
-      usuarios,
-    });
+    return res.status(200).json(usuarios);
   } catch (error) {
-    return res.status(400).json({
-      message: error.message,
-    });
+    if (error instanceof Error) {
+      return res.status(400).json({
+        message: error.message,
+      });
+    }
+
+    return res.sendStatus(400);
   }
 });
 
-// TODO: jack
-// TODO: 7) Mostrar toda a agenda ordenada pelo nome.
-// TODO: 8) Mostrar toda a agenda ordenada por mês.
 routes.get('/', (req: Request, res: Response) => {
   const { ordem } = req.query;
-  if (ordem === 'nome') {
-    return res.json({
-      message: `Indexa todos os aniversariantes ordenados por ${ordem}.`,
-    });
-  }
-  if (ordem === 'mes') {
-    return res.json({
-      message: `Indexa todos os aniversariantes ordenados por ${ordem}.`,
-    });
-  }
+  const users = ordenarDB(ordem as string);
 
-  return res.json({ message: 'Indexa todos os aniversariantes.' });
+  return res.status(200).json({ users });
 });
 
 export default routes;
