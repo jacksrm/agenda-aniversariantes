@@ -35,6 +35,7 @@
       "no-unused-vars":"warn",
       "no-empty-function":"off",
       "object-curly-newline":"off",
-      "import/extensions": "off"
+      "import/extensions": "off",
+      "indent":["error", 2]
     }
 }

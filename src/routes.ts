@@ -1,12 +1,13 @@
+import express, { Request, Response } from 'express';
 import {
   adicionarRegistro,
   alterarNomeRegistro,
   removerRegistro,
   consultaLetraInicial,
+  consultaMesDia,
   ordenarDB,
   consultaMes,
 } from 'database';
-import express, { Request, Response } from 'express';
 import { User, UserDataUpdate } from './types';
 
 const routes = express.Router();
@@ -52,11 +53,17 @@ routes.put('/alterar/:nome', (req: Request, res: Response) => {
   }
 });
 
-// TODO: 4) Consultar aniversariantes de uma data (dia e mês). Dante
 routes.get('/index/:mes/:dia', (req: Request, res: Response) => {
   const { mes, dia } = req.params;
-
-  res.json({ message: `Indexa aniversariantes do dia ${dia}/${mes}.` });
+  try {
+    const users = consultaMesDia(parseInt(mes, 10), parseInt(dia, 10));
+    return res.status(200).json(users);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ message: error.message });
+    }
+    return res.sendStatus(400);
+  }
 });
 
 // TODO: 5) Consultar aniversariantes por mês. Jão

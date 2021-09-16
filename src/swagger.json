@@ -20,7 +20,7 @@
       "get": {
         "summary": "Retorna todos os usuários ordenados",
         "description": "Esta rota recebe um parâmetro via query chamado ordem que recebe 'mes' ou 'nome' e retorna todos os registros ordenados por nome ou mês de aniversário.",
-        "tag": [
+        "tags": [
           "Usuário"
         ],
         "parameters": [
@@ -231,7 +231,65 @@
         }
       }
     },
-    "/index/{mes}/{dia}": {},
+    "/index/{mes}/{dia}": {
+      "get": {
+        "summary": "Busca de usuário a partir do mes e dia",
+        "description": "Rota criada para achar o usuario a partir do mes e dia",
+        "tags": [
+          "Usuário"
+        ],
+        "parameters": [
+          {
+            "name": "mes",
+            "in": "path",
+            "description": "Mes do usuario para busca",
+            "required": true
+          },
+          {
+            "name": "dia",
+            "in": "path",
+            "description": "Dia do usuario para busca",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuários encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuário"
+                  }
+                },
+                "examples": {
+                  "usuarios": {
+                    "$ref": "#/components/examples/Usuários"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dia ou mês no formato errado!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Mês/Dia inválido!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/index/{mes}": {
       "get": {
         "summary": "Busca usuarios por mes",
@@ -311,27 +369,10 @@
                     "$ref": "#/components/examples/Usuários"
                   }
                 },
-                "example": {
-                  "usuarios": [
-                    {
-                      "id": 222,
-                      "nome": "Jacson Rodrigues",
-                      "mes": 10,
-                      "dia": 22
-                    },
-                    {
-                      "id": 212,
-                      "nome": "Jaqueline Rodrigues",
-                      "mes": 4,
-                      "dia": 11
-                    },
-                    {
-                      "id": 312,
-                      "nome": "Pamela Coelho",
-                      "mes": 6,
-                      "dia": 25
-                    }
-                  ]
+                "examples": {
+                  "usuarios": {
+                    "$ref": "#/components/examples/Usuários"
+                  }
                 }
               }
             }
@@ -415,11 +456,26 @@
       },
       "Usuários": {
         "summary": "Exemplo de usuários",
-        "value": {
-          "arrayOf": {
-            "$ref": "#/components/examples/Usuário"
+        "value": [
+          {
+            "id": 222,
+            "nome": "Jacson Rodrigues",
+            "mes": 10,
+            "dia": 22
+          },
+          {
+            "id": 212,
+            "nome": "Jaqueline Rodrigues",
+            "mes": 4,
+            "dia": 11
+          },
+          {
+            "id": 312,
+            "nome": "Pamela Coelho",
+            "mes": 6,
+            "dia": 25
           }
-        }
+        ]
       }
     },
     "requestBodies": {

@@ -70,6 +70,14 @@ function consultaLetraInicial(letra?: string) {
   });
   return arrUsuariosEncontrados;
 }
+function consultaMesDia(mes: number, dia: number) {
+  if (!(mes >= 1 && mes <= 12)) throw new Error('Mês inválido');
+  if (!(dia >= 1 && dia <= 31)) throw new Error('Dia inválido');
+  const db = getDB();
+  const arrUsuariosEncontrados = db.filter((user) => user.dia === dia && user.mes === mes);
+
+  return arrUsuariosEncontrados;
+}
 
 function ordenarDB(ordem: string) {
   const db = getDB();
@@ -101,6 +109,7 @@ export {
   removerRegistro,
   alterarNomeRegistro,
   consultaLetraInicial,
+  consultaMesDia,
   ordenarDB,
   consultaMes
 };
