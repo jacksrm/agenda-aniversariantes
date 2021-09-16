@@ -11,6 +11,10 @@
   },
   "servers": [
     {
+      "url": "https://agendaaniversariantesapi.herokuapp.com/",
+      "description": "Endereço da API Rodando em Produção."
+    },
+    {
       "url": "http://localhost:3333/",
       "description": "URL de desenvolvimento executando em localhost."
     }
