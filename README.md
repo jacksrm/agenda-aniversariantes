@@ -17,7 +17,7 @@ Esta é uma API desenvolvida como um trabalho da disciplina Integração de Sist
 Esta API é um simples programa que armazena registros de um usuário (nome, mês e dia de aniversário) e faz operações de CRUD em cima dessa base de dados além de permitir fazer buscas por mês ou dia e mês de aniversário e também por letra inicial ou nome do usuário.
 
 ## Links de uso
-Aqui estão os liks de acesso a API: 
+Aqui estão os links de acesso a API: 
 
 - Link da API: [API Agenda Aniversariantes](https://agendaaniversariantesapi.herokuapp.com/)
 - Documentação em Swagger 3.0: [Documentação API Agenda Aniversariantes](https://agendaaniversariantesapi.herokuapp.com/api-docs)
