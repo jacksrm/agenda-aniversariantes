@@ -7,7 +7,7 @@ import {
   consultaMesDia,
   ordenarDB,
   consultaMes,
-} from 'database';
+} from './database';
 import { User, UserDataUpdate } from './types';
 
 const routes = express.Router();
