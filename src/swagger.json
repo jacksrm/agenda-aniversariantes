@@ -46,26 +46,16 @@
                     "usuarios": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "integer"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "mes": {
-                            "type": "integer"
-                          },
-                          "dia": {
-                            "type": "integer"
-                          }
-                        }
+                        "$ref": "#/components/schemas/Usuário"
                       }
                     }
                   }
                 },
-                "examples": {}
+                "examples": {
+                  "usuarios": {
+                    "$ref": "#/components/examples/Usuários"
+                  }
+                }
               }
             }
           }
