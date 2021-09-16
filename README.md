@@ -1,5 +1,5 @@
 # Bem vindos a API Agenda de Aniversariantes
-Esta é uma API desenvolvida como um trabalho da disciplina Integração de Sistemas do curso de Análise e Desenvolvimento de Sistemas na Universidade de Fortaleza
+Esta é uma API desenvolvida como um trabalho da disciplina Técincas de Integração de Sistemas do curso de Análise e Desenvolvimento de Sistemas na Universidade de Fortaleza
 
 ## Indice
   - [Integrantes da Equipe de Desenvolvimento](#integrantes-da-equipe-de-desenvolvimento)
