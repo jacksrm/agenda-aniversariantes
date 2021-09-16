@@ -95,6 +95,15 @@ function ordenarDB(ordem: string) {
   return ordenacao;
 }
 
+function consultaMes(mes: number){
+  const db = getDB();
+  const users = db.filter((user) => {
+    return user.mes === mes
+  });
+
+  return users;
+}
+
 export {
   adicionarRegistro,
   removerRegistro,
@@ -102,4 +111,5 @@ export {
   consultaLetraInicial,
   consultaMesDia,
   ordenarDB,
+  consultaMes
 };

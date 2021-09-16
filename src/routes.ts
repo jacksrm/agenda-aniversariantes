@@ -6,7 +6,8 @@ import {
   consultaLetraInicial,
   consultaMesDia,
   ordenarDB,
-} from './database';
+  consultaMes,
+} from 'database';
 import { User, UserDataUpdate } from './types';
 
 const routes = express.Router();
@@ -68,7 +69,15 @@ routes.get('/index/:mes/:dia', (req: Request, res: Response) => {
 // TODO: 5) Consultar aniversariantes por mês. Jão
 routes.get('/index/:mes', (req: Request, res: Response) => {
   const { mes } = req.params;
-  res.json({ message: `Indexa aniversariantes do mes ${mes}.` });
+  try {
+    const usuarios = consultaMes(+mes);
+    return res.status(200).json(usuarios);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ message: error.message });
+    }
+    return res.sendStatus(400);
+  }
 });
 
 routes.get('/index', (req: Request, res: Response) => {

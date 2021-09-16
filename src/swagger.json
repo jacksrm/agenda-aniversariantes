@@ -290,7 +290,59 @@
         }
       }
     },
-    "/index/{mes}": {},
+    "/index/{mes}": {
+      "get": {
+        "summary": "Busca usuarios por mes",
+        "description": "Esta rota recebe como parâmetro o mes selecionado e retorna os aniversariantes desse mes.",
+        "tags": [
+          "Usuário"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mes",
+            "description": "Mes do usuario para a busca.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuarios encontrados.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuário"
+                  }
+                },
+                "examples": {
+                  "usuarios": {
+                    "$ref": "#/components/examples/Usuários"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Mes com formato errado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Mes inválido."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/index": {
       "get": {
         "summary": "Busca usuário por letra inicial ou nome",
